@@ -1,0 +1,17 @@
+:root[theme-mode='light'] {
+    --bg-color: #fff;
+    --head-bgcolor: #e9e0e0;
+    --text-color: #000
+}
+
+:root[theme-mode='dark'] {
+    --bg-color: #2c2c2c;
+    --head-bgcolor: #343232;
+    --text-color: #fff
+}
+
+:root[theme-mode='red'] {
+    --bg-color: rgb(0, 128, 255);
+    --head-bgcolor: rgb(183, 215, 231);
+    --text-color: red;
+}
