@@ -7,6 +7,8 @@ export default {
     Query: '查询',
     Cancel: '取消',
     Confirm: '确认',
+    Details: '详情',
+    Save: '保存',
   },
   login:{
     Username: '用户名',
@@ -31,7 +33,9 @@ export default {
     Image: '图片',
     Stock: '库存',
     Status: '状态',
-    Action: '操作项',  
+    CreatedAt: '创建时间',
+    UpdatedAt: '更新时间',
+    Action: '操作项', 
   },
   Orders: {
     title: '订单列表',
@@ -41,6 +45,7 @@ export default {
     Quantity: '数量',
     Total: '总价',
     Status: '状态',
+    CreatedAt: '创建时间',
     Action: '操作项',
   },
   Users: {
@@ -51,6 +56,8 @@ export default {
     Phone: '电话',
     Address: '地址',
     Role: '角色',
+    CreatedAt: '创建时间',
+    Action: '操作项',
   }
 }
 

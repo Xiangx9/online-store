@@ -16,18 +16,36 @@
       <el-table :data="tableData" style="width: 100%;" height="800" align="center" border>
         <el-table-column type="index" width="50" />
         <el-table-column prop="Name" :label="$t('Products.Name')" width="" />
-        <el-table-column prop="Price" :label="$t('Products.Price')" width="" />
+        <el-table-column prop="Price" :label="$t('Products.Price')" width="">
+          <template #default="scope">
+            ￥ {{ scope.row.Price }}
+          </template>
+        </el-table-column>
         <el-table-column prop="Description" :label="$t('Products.Description')" width="" />
         <el-table-column prop="Image" :label="$t('Products.Image')" width="">
           <template #default="scope">
-            <el-image :src="scope.row.Image[0].url" loading="lazy" style="" :fit="cover" />
+            <el-image :src="scope.row.Image[0].url" loading="lazy" style="width: 100px;height: 100px;;" :fit="cover" />
           </template>
         </el-table-column>
-        <el-table-column prop="Stock" :label="$t('Products.Stock')" width="" />
+        <el-table-column prop="Stock" :label="$t('Products.Stock')" width="">
+          <template #default="scope">
+            {{ scope.row.Stock }}
+          </template>
+        </el-table-column>
         <el-table-column prop="Status" :label="$t('Products.Status')" width="">
           <template #default="scope">
             <el-tag v-if="scope.row.Status == '1'" type="success">已上架</el-tag>
             <el-tag v-else type="danger">已下架</el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column prop="" :label="$t('Products.CreatedAt')" width="">
+          <template #default="scope">
+            {{ new Date(scope.row.createdAt).toLocaleString() }}
+          </template>
+        </el-table-column>
+        <el-table-column prop="" :label="$t('Products.UpdatedAt')" width="">
+          <template #default="scope">
+            {{ new Date(scope.row.updatedAt).toLocaleString() }}
           </template>
         </el-table-column>
         <el-table-column fixed="right" :label="$t('Products.Action')" min-width="120">
@@ -68,14 +86,7 @@ import { getProductList, addProduct, EditProduct, DelProduct, } from './api'
 let pages = ref(1)
 let pageSize = ref(20)
 let total = ref(0)
-const tableData = ref([{
-  Name: '商品1',
-  Price: '100',
-  Description: '商品1',
-  Image: '商品1',
-  Stock: '商品1',
-  Status: '0'
-}])
+const tableData = ref([])
 const GetList = async () => {
   try {
     let pram = {

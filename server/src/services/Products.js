@@ -18,7 +18,7 @@ const getProducts = async (params) => {
     let query = { //按条件查询
       UserId,
       isDeleted: false,
-      ...(Status && { Status }),
+      ...(Status && { Status }),//如果Status存在，则添加到查询条件中 //如果Status不存在，则不添加到查询条件中
     };
     // 分页
     const pageSize =params.pageSize || 10, pageNumber = params.pageNumber || 1;

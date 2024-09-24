@@ -73,5 +73,15 @@ module.exports = {
     code: '20005',
     message: '商品获取错误',
     result: '',
+  },
+  OrderListError: {
+    code: '30001',
+    message: '订单列表获取错误',
+    result: '',
+  },
+  createOrderError: {
+    code: '30002',
+    message: '创建订单错误',
+    result: '',
   }
 }

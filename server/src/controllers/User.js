@@ -1,5 +1,5 @@
-const { userRegisterError, userLoginError,getUserError, invalidPassword,invalidToken } = require('../constant/errorType')
-const { createtUser, UserLogin,getUser,changPassword,changToken,updateUserInfo } = require('../services/User')
+const { userRegisterError, userLoginError, getUserError, invalidPassword, invalidToken } = require('../constant/errorType')
+const { createtUser, UserLogin,Userlist, getUser, changPassword, changToken, updateUserInfo,updateRoleInfo } = require('../services/User')
 // 注册
 const register = async (ctx, next) => {
     try {
@@ -18,7 +18,7 @@ const register = async (ctx, next) => {
 
 // 登录
 const login = async (ctx, next) => {
-    try {        
+    try {
         const { username, password } = ctx.request.body;
         const userinfo = await UserLogin(username, password)
         ctx.body = {
@@ -32,6 +32,22 @@ const login = async (ctx, next) => {
     }
 }
 
+// 获取用户列表
+const getUserList = async (ctx, next) => {
+    try {
+        const params = ctx.query
+        const userList = await Userlist(ctx,params)
+        ctx.body = {
+            code: 200,
+            message: '获取用户列表成功',
+            result:userList
+        }
+    } catch (error) {
+        console.log("获取用户信息", error);
+        ctx.app.emit('error', getUserError, ctx)
+    }
+}
+
 // 获取用户信息
 const getUserInfo = async (ctx, next) => {
     try {
@@ -42,7 +58,7 @@ const getUserInfo = async (ctx, next) => {
             message: '获取用户信息成功',
             result: userinfo
         }
-    }catch (error) {
+    } catch (error) {
         console.log("获取用户信息", error);
         ctx.app.emit('error', getUserError, ctx)
     }
@@ -51,13 +67,13 @@ const getUserInfo = async (ctx, next) => {
 // 修改密码
 const updatePassword = async (ctx, next) => {
     try {
-        const {id, username, newPassword } = ctx.request.body;
-        await changPassword(id,username,newPassword)
+        const { id, username, newPassword } = ctx.request.body;
+        await changPassword(id, username, newPassword)
         ctx.body = {
             code: 200,
             message: '修改密码成功',
         }
-    }catch (error) {
+    } catch (error) {
         console.log("修改密码", error);
         ctx.app.emit('error', invalidPassword, ctx)
     }
@@ -65,10 +81,10 @@ const updatePassword = async (ctx, next) => {
 }
 
 //刷新token
-const updateToken= async (ctx, next) => {
+const updateToken = async (ctx, next) => {
     try {
-       const { refreshToken } = ctx.request.body;
-       const tokenInfo = await changToken(refreshToken)
+        const { refreshToken } = ctx.request.body;
+        const tokenInfo = await changToken(refreshToken)
         ctx.body = {
             code: 200,
             message: '刷新token成功',
@@ -80,18 +96,34 @@ const updateToken= async (ctx, next) => {
     }
 }
 
-//修改用户信息
+//编辑用户信息
 const updataUser = async (ctx, next) => {
     try {
         const { id, username, avatar, address, phone } = ctx.request.body
-        const UserInfo = await updateUserInfo(id,{ username, avatar, address, phone})
+        const UserInfo = await updateUserInfo(id, { username, avatar, address, phone })
         ctx.body = {
             code: 200,
             message: '修改用户信息成功',
             UserInfo
         }
     } catch (error) {
-        console.log("修改用户信息",error);
+        console.log("修改用户信息", error);
+        ctx.app.emit('error', getUserError, ctx)
+    }
+}
+
+//修改用户权限
+const updateRole = async (ctx, next) => {
+    try {
+        const { id, role } = ctx.request.body
+        const UserInfo = await updateRoleInfo(id, { role })
+        ctx.body = {
+            code: 200,
+            message: '修改用户权限成功',
+            UserInfo
+        }
+    } catch (error) {
+        console.log("修改用户权限", error);
         ctx.app.emit('error', getUserError, ctx)
     }
 }
@@ -99,8 +131,10 @@ const updataUser = async (ctx, next) => {
 module.exports = {
     register,
     login,
+    getUserList,
     getUserInfo,
     updatePassword,
     updateToken,
-    updataUser
+    updataUser,
+    updateRole
 }

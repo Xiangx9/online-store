@@ -16,7 +16,7 @@ const UserSchema = new moogoose.Schema({
     type: String,
     enum: ['admin', 'user', 'guest',],//限定role的值只能是admin、user、guest
     default: 'guest',
-    comment: 'admin（管理员）, user（用户）, guest （访客）',
+    comment: 'admin（管理员）, user（用户）, guest （会员）',
   },
   avatar: {
     type: String,
@@ -33,7 +33,7 @@ const UserSchema = new moogoose.Schema({
     default: '未设置',
     comment: '电话'
   },
-  refreshToken:String
+  refreshToken: String,
 }, { timestamps: true })
 
 const User = moogoose.model('User', UserSchema); //将UserSchema转换为User模型

@@ -9,9 +9,9 @@
       </el-form-item>
 
       <el-form-item>
-        <el-button @click="submitForm(ruleFormRef, 'register')">
+        <!-- <el-button @click="submitForm(ruleFormRef, 'register')">
           {{ $t('login.Register') }}
-        </el-button>
+        </el-button> -->
         <el-button type="primary" @click="submitForm(ruleFormRef, 'login')">
           {{ $t('login.Login') }}
         </el-button>
