@@ -22,12 +22,24 @@ const getProducts = async (params) => {
     };
     // 分页
     const pageSize =params.pageSize || 10, pageNumber = params.pageNumber || 1;
-    const totalCount = await Products.countDocuments();
+    const totalCount = await Products.countDocuments(UserId);
     const products = await Products.find(query).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({createdAt: -1}).populate('UserId').exec();
     return {totalCount, products};
   } catch (error) {
     throw new Error(error);
   }
+}
+
+// 客户端获取商品
+const authProducts = async (params) => {
+  const { Name } = params
+  let query = { //按条件查询
+    Status: 1,
+  }
+  const pageSize =params.pageSize || 10, pageNumber = params.pageNumber || 1;
+  const totalCount = await Products.countDocuments({Status:1}).where('Name').regex(Name);
+  const products = await Products.find(query).where('Name').regex(Name).skip((pageNumber - 1) * pageSize).limit(pageSize).sort({createdAt: -1}).populate('UserId').exec();
+  return {totalCount, products};
 }
 
 //编辑商品
@@ -64,6 +76,7 @@ const getProductDetails = async (id) => {
 module.exports = {
   addProducts,
   getProducts,
+  authProducts,
   editProducts,
   deleteProducts,
   getProductDetails,

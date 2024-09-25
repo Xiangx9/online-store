@@ -2,11 +2,11 @@
 	<view>
 		<view style="height: 100rpx;"></view>
 		<view class="top">
-			<u-image width="150rpx" height="150rpx" :src="src" mode="widthFix" shape='circle'></u-image>
+			<u-avatar :src="user.avatar" size='large'></u-avatar>
 			<view style="text-align: center; width: 350rpx;">
-				<view @click="Login()" style="color: #000;font-weight: 800;font-size: 35rpx;margin: 20rpx 0;">
+				<view style="color: #000;font-weight: 800;font-size: 35rpx;margin: 20rpx 0;">
 					<span v-if="user.username">{{ user.username }}</span>
-					<span v-else >登录</span>
+					<span v-else @click="Login()">登录</span>
 				</view>
 				<view class="usertype" v-if="user.username">
 					<text>Lv.1会员</text>
@@ -47,15 +47,16 @@
 			};
 		},
 		onLoad() {
-			this.user=uni.getStorageSync('User').user
+			this.user = uni.getStorageSync('User').user
+			console.log(this.user);
 		},
 		onShow() {
 
 		},
 		methods: {
-			Login(){
+			Login() {
 				uni.navigateTo({
-					url:'/pages/login/login',
+					url: '/pages/login/login',
 				})
 			}
 		}
@@ -71,7 +72,8 @@
 		margin: 20rpx 30rpx 0 30rpx;
 		padding: 80rpx 0 50rpx 0;
 		border-radius: 20rpx;
-		background: linear-gradient(45deg, rgb(0, 223, 223), rgb(141, 198, 63));;
+		background: linear-gradient(45deg, rgb(0, 223, 223), rgb(141, 198, 63));
+		;
 	}
 
 	.usertype {

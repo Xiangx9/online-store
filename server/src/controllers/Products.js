@@ -1,4 +1,4 @@
-const { addProducts, getProducts, editProducts, deleteProducts,getProductDetails } = require('../services/Products')
+const { addProducts, getProducts,authProducts, editProducts, deleteProducts,getProductDetails } = require('../services/Products')
 const { ProductAddError, ProductGetError, ProductUpdateError,deleteProductErr } = require('../constant/errorType')
 
 // 添加商品
@@ -71,6 +71,22 @@ const getProduct = async (ctx, next) => {
   }
 }
 
+//客户端获取商品列表
+const authProduct= async (ctx, next) => {
+  try {
+    const params = ctx.query
+    const result = await authProducts(params)
+    ctx.body = {
+      code: 200,
+      message: '获取商品列表成功',
+      data: result
+    }
+  } catch (error) {
+    console.error('获取商品列表失败', ctx.request.body)
+    ctx.app.emit('error', ProductGetError, ctx)
+  }
+}
+
 // 获取商品详情
 const getProductDetail = async (ctx, next) => {
   try {
@@ -94,6 +110,7 @@ const getProductCategory = async (ctx, next) => {
 
 module.exports = {
   addProduct,
+  authProduct,
   deleteProduct,
   editProduct,
   getProduct,

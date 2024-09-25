@@ -1,6 +1,6 @@
 <template>
 	<view class="wrap">
-		<view class="box" v-for="(item,index) in productList" :key="index">
+		<view class="box" v-for="(item,index) in list" :key="index">
 			<u-lazy-load threshold="-450" border-radius="10" :image="item.Image[0].url" :index="index"></u-lazy-load>
 			<view class="demo-title">
 				{{item.Name}} {{item.Description}}
@@ -25,64 +25,24 @@
 
 <script>
 	export default {
-		props: {},
+		name: 'weardfall',
+		props: {
+			flowList: Array
+		},
 		data() {
 			return {
-				productList: [],
-				loadStatus: 'loadmore',
-				// 查询关键词
-				Name: '',
-				// 页码值
-				pagenum: 1,
-				// 每页显示多少条数据
-				pagesize: 5,
-				total: 0,
+				list: []
 			}
 		},
-		onLoad(e) {
-			e ? this.Name = e.Name : ''
-			this.addRandomData();
-		},
-		// 下拉刷新的事件
-		onPullDownRefresh() {
-			// 1. 重置关键数据
-			this.pagenum = 1
-			this.total = 0
-			this.productList = []
-			// 2. 重新发起请求
-			this.addRandomData(() => uni.stopPullDownRefresh())
-		},
-		// 上拉触底
-		onReachBottom() {
-			this.loadStatus = 'loading';
-			if (this.pagesize * this.pagenum > this.total) {
-				this.loadStatus = 'nomore';
-			} else {
-				this.pagenum = ++this.pagenum;
-				this.addRandomData();
-				this.loadStatus = 'loadmore';
+		watch: {
+			flowList(newValue, oldValue) {
+				this.list =newValue
 			}
+		},
+		onLoad() {
+
 		},
 		methods: {
-			// 获取商品列表
-			async addRandomData(cb) {
-				let parm = {
-					pageNumber: this.pagenum,
-					pageSize: this.pagesize,
-					Name: this.Name
-				}
-				const {
-					data: res
-				} = await this.$u.get('/products/authProduct', parm)
-				// 只要数据请求完毕，就立即按需调用 cb 回调函数
-				cb && cb()
-				this.productList = [
-					...this.productList,
-					...res.products
-				]
-				this.total = res.totalCount
-				if(this.productList.length==0) this.$u.toast('暂无商品');
-			},
 
 		}
 	}
