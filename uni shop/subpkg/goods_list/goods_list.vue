@@ -1,29 +1,11 @@
 <template>
 	<view class="wrap">
-		<view class="box" v-for="(item,index) in productList" :key="index">
-			<u-lazy-load threshold="-450" border-radius="10" :image="item.Image[0].url" :index="index"></u-lazy-load>
-			<view class="demo-title">
-				{{item.Name}} {{item.Description}}
-			</view>
-			<view class="demo-price">
-				{{item.Price}}元
-			</view>
-			<view class="demo-tag">
-				<view class="demo-tag-owner">
-					自营
-				</view>
-				<view class="demo-tag-text">
-					放心购
-				</view>
-			</view>
-			<view class="demo-shop">
-				{{item.UserId.username}}的店铺
-			</view>
-		</view>
+		<weardfall :flowList='productList' />
 	</view>
 </template>
 
 <script>
+	import weardfall from '../../pages/home/weardfall.vue'
 	export default {
 		props: {},
 		data() {
@@ -38,6 +20,9 @@
 				pagesize: 5,
 				total: 0,
 			}
+		},
+		components: {
+			weardfall
 		},
 		onLoad(e) {
 			e ? this.Name = e.Name : ''
@@ -81,7 +66,7 @@
 					...res.products
 				]
 				this.total = res.totalCount
-				if(this.productList.length==0) this.$u.toast('暂无商品');
+				if (this.productList.length == 0) this.$u.toast('暂无商品');
 			},
 
 		}

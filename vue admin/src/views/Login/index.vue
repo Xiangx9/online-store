@@ -1,58 +1,49 @@
 <template>
-  <div class="login">
-    <el-form ref="ruleFormRef" :model="loginForm" :rules="rules" label-width="auto" class="demo-ruleForm">
-      <el-form-item :label="$t('login.Username')" prop="username">
-        <el-input v-model.trim="loginForm.username" type="" autocomplete="off" clear />
-      </el-form-item>
-      <el-form-item :label="$t('login.Password')" prop="password">
-        <el-input v-model.trim="loginForm.password" type="password" autocomplete="off" clear />
-      </el-form-item>
-
-      <el-form-item>
-        <!-- <el-button @click="submitForm(ruleFormRef, 'register')">
-          {{ $t('login.Register') }}
-        </el-button> -->
-        <el-button type="primary" @click="submitForm(ruleFormRef, 'login')">
-          {{ $t('login.Login') }}
-        </el-button>
-      </el-form-item>
-    </el-form>
+  <div class="loginPage">
+    <div class="login">
+      <div class="logintext">{{ $t('login.Login') }}</div>
+      <div class="field">
+        <input type="text" placeholder="" v-model.trim="loginForm.username">
+        <div class="placeholder"> {{ $t('login.Username') }}</div>
+      </div>
+      <div class="field">
+        <input type="password" placeholder="" v-model.trim="loginForm.password">
+        <div class="placeholder"> {{ $t('login.Password') }}</div>
+      </div>
+      <!-- <div class="loginbtn" @click="submitForm(loginForm, 'Register')">{{ $t('login.Register') }}</div> -->
+      <div class="loginbtn" @click="submitForm(loginForm, 'login')">{{ $t('login.Login') }}</div>
+    </div>
   </div>
-</template>
 
+
+</template>
 <script setup>
-import './index.scss'
 import { login, register, updatePassword } from "./api.js"
 import { reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import UserStore from '@/store/user.js'
+import { ElMessage } from "element-plus";
 const route = useRoute()
 const router = useRouter()
 
-
-const ruleFormRef = ref()
 
 const loginForm = reactive({
   username: '',
   password: '',
 })
 
-// 表单验证
-const rules = reactive({
-  username: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-  password: [{ required: true, message: 'Please input Activity name', trigger: 'blur' }],
-})
 
 // 提交表单
 const submitForm = (formEl, Type) => {
-  if (!formEl) return
-  formEl.validate((valid) => {
-    if (valid) {
-      Type == 'register' ? Register() : Login()
-    } else {
-      console.log('error submit!')
-    }
-  })
+  if (!formEl.username) {
+    ElMessage.error('请输入用户名')
+    return
+  }
+  if (!formEl.password) {
+    ElMessage.error('请输入密码')
+    return
+  }
+  Type == 'register' ? Register() : Login()
 }
 
 //注册
@@ -72,4 +63,6 @@ const Login = async () => {
 
 </script>
 
-<style scope lang="scss"></style>
+<style scope lang="scss">
+@import './index.scss'
+</style>

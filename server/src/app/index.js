@@ -12,7 +12,15 @@ const app = new Koa(); // 创建koa实例
 
 app.use(ratelimiter); // 使用限流中间件
 app.use(Cors()); // 使用cors中间件 处理跨域请求
-app.use(koaBody()); // 使用koa-body中间件 处理请求体
+app.use(koaBody(
+  {
+    multipart: true, // 支持文件上传
+    strict:false,//设为false
+    formidable: {
+        maxFileSize: 2000 * 1024 * 1024
+    }// 设置上传文件大小最大限制，默认20M
+  }
+)); // 使用koa-body中间件 处理请求体
 
 app.use(logger()); // 使用logger中间件 处理日志
 

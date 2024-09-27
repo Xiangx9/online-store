@@ -1,6 +1,6 @@
 <template>
 	<view class="wrap">
-		<view class="box" v-for="(item,index) in list" :key="index">
+		<view class="box" v-for="(item,index) in list" :key="index" @click="goToDetail(item)">
 			<u-lazy-load threshold="-450" border-radius="10" :image="item.Image[0].url" :index="index"></u-lazy-load>
 			<view class="demo-title">
 				{{item.Name}} {{item.Description}}
@@ -43,7 +43,12 @@
 
 		},
 		methods: {
-
+			goToDetail(e){
+				console.log(e);
+				uni.navigateTo({
+					url: `/subpkg/goods_detail/goods_detail?id=${e._id}&phone=${e.UserId.phone}`
+				})
+			}
 		}
 	}
 </script>
@@ -54,7 +59,6 @@
 		flex-wrap: wrap;
 		justify-content: space-between;
 		margin: 20rpx;
-
 		.box {
 			width: 49%;
 			background-color: #fff;

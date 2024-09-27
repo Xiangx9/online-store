@@ -6,7 +6,7 @@
 		</view>
 		<!-- //搜索结果 -->
 		<view class="sugg-list" v-if="searchResults.length!==0">
-			<view class="sugg-item" v-for="(item,i) in searchResults" :key="i" @click="gotoDetail(item._id)">
+			<view class="sugg-item" v-for="(item,i) in searchResults" :key="i" @click="gotoDetail(item)">
 				<view style="display: flex;">
 					<view class="goods-name">{{item.Name}}</view>
 					<u-image width="50rpx" height="50rpx" :src="item.Image[0].url" lazy-load></u-image>
@@ -43,7 +43,7 @@
 				historyList: []
 			}
 		},
-		onload() {
+		onLoad() {
 			// 加载本地存储的搜索历史记录
 			this.historyList = uni.getStorageSync('value') || []
 		},
@@ -77,9 +77,9 @@
 				this.saveSearchHistory()
 				if(this.searchResults.length==0) this.$u.toast('暂无商品');
 			},
-			gotoDetail(goods_id) {
+			gotoDetail(goods) {
 				uni.navigateTo({
-					url: "/subpkg/goods_detail/goods_detail?id=" + goods_id
+					url: `/subpkg/goods_detail/goods_detail?id=${goods._id}&phone=${goods.UserId.phone}`
 				})
 			},
 			// 2. 保存搜索关键词的方法

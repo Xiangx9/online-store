@@ -24,7 +24,7 @@
         <el-table-column prop="Description" :label="$t('Products.Description')" width="" />
         <el-table-column prop="Image" :label="$t('Products.Image')" width="">
           <template #default="scope">
-            <el-image :src="scope.row.Image[0].url" loading="lazy" style="width: 100px;height: 100px;;" :fit="cover" />
+            <el-image :src="scope.row.Image[0].url" loading="lazy" style="width: 100px" :fit="contain" />
           </template>
         </el-table-column>
         <el-table-column prop="Stock" :label="$t('Products.Stock')" width="">

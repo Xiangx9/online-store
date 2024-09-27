@@ -1,12 +1,14 @@
 <template>
 	<view>
-		<view style="height: 100rpx;"></view>
+		<view style="height: 80rpx;"></view>
 		<!-- 搜索组件 -->
-		<view class="box">
+		<u-sticky offset-top="80">
 			<my-search @myclick="gotoSerach"></my-search>
+		</u-sticky>
+		<view class="">
+			<weardfall :flowList='productList' />
+			<u-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus" @loadmore="addRandomData"></u-loadmore>
 		</view>
-		<weardfall :flowList='productList' />
-		<u-loadmore bg-color="rgb(240, 240, 240)" :status="loadStatus" @loadmore="addRandomData"></u-loadmore>
 	</view>
 </template>
 
@@ -16,7 +18,7 @@
 		data() {
 			return {
 				productList: [],
-				loadStatus: 'loadmore',
+				loadStatus: 'loading',
 				// 查询关键词
 				Name: '',
 				// 页码值
@@ -43,7 +45,6 @@
 		},
 		// 上拉触底
 		onReachBottom() {
-			this.loadStatus = 'loading';
 			if (this.pagesize * this.pagenum > this.total) {
 				this.loadStatus = 'nomore';
 			} else {
@@ -55,6 +56,7 @@
 		methods: {
 			// 获取商品列表
 			async addRandomData(cb) {
+				this.loadStatus = 'loading';
 				let parm = {
 					pageNumber: this.pagenum,
 					pageSize: this.pagesize,
@@ -70,6 +72,9 @@
 					...res.products
 				]
 				this.total = res.totalCount
+				if (this.pagesize * this.pagenum > this.total) {
+					this.loadStatus = 'nomore';
+				}
 			},
 			gotoSerach() {
 				uni.navigateTo({
@@ -120,9 +125,5 @@
 		justify-content: space-around;
 	}
 
-	.box {
-		position: sticky;
-		top: 0;
-		z-index: 999;
-	}
+	.box {}
 </style>

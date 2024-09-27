@@ -16,7 +16,7 @@
 
 		<view class="nav">
 			<view class="account" v-for="item in list">
-				<view class="flex">
+				<view class="flex" @click="goToPages(item.address)">
 					<i class="iconfont" :class='item.icon'></i>
 					<view class="btnav">{{item.name}}</view>
 				</view>
@@ -32,14 +32,17 @@
 			return {
 				list: [{
 						icon: 'icon-duizhang-39',
-						name: '消费记录'
+						name: '消费记录',
+						address:''
 					}, {
 						icon: 'icon-dianpu',
-						name: '地址管理'
+						name: '地址管理',
+						address:'/subpkg/address/address'
 					},
 					{
 						icon: 'icon-shezhi1',
-						name: '个人资料'
+						name: '个人资料',
+						address:''
 					}
 				],
 				user: {},
@@ -47,16 +50,21 @@
 			};
 		},
 		onLoad() {
-			this.user = uni.getStorageSync('User').user
-			console.log(this.user);
+	
 		},
 		onShow() {
-
+			this.user = uni.getStorageSync('User').user
+			console.log(this.user);
 		},
 		methods: {
 			Login() {
 				uni.navigateTo({
 					url: '/pages/login/login',
+				})
+			},
+			goToPages(address){
+				uni.navigateTo({
+					url:address
 				})
 			}
 		}

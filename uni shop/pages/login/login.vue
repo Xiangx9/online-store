@@ -3,7 +3,7 @@
 	<view class="contaier">
 		<view class="top-bg">
 			<view class="text-white text-bold text-xxxl">在线铺子</view>
-			<view class="margin-top-xs text-white">欢迎使用，请先登录</view>
+			<view class="margin-top-xs text-white">欢迎使用，在线铺子</view>
 		</view>
 
 		<view class="input-box padding-lr">
@@ -18,11 +18,11 @@
 		</view>
 
 		<view class="bttom">
-			<u-button plain type="primary" shape='circle' @tap="$u.debounce(login, 1000)">登录</u-button>
+			<u-button plain type="primary" shape='circle' @click="$u.debounce(login, 1000)">登录</u-button>
 		</view>
 
 		<view class="bttom">
-			<u-button plain type="" shape='circle' @tap="$u.debounce(register, 1000)">注册</u-button>
+			<u-button plain type="" shape='circle' @click="$u.debounce(register, 1000)">注册</u-button>
 		</view>
 	</view>
 </template>

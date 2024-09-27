@@ -74,6 +74,11 @@ module.exports = {
     message: '商品获取错误',
     result: '',
   },
+  ProducError: {
+    code: '20006',
+    message: '商品不存在',
+    result: '',
+  },
   OrderListError: {
     code: '30001',
     message: '订单列表获取错误',
@@ -83,5 +88,26 @@ module.exports = {
     code: '30002',
     message: '创建订单错误',
     result: '',
-  }
+  },
+  AddCartError: {
+    code: '40001',
+    message: '添加购物车错误',
+    result: '',
+  },
+  CartListError: {
+    code: '40002',
+    message: '购物车列表获取错误',
+    result: '',
+  },
+  CartDeleteError: {
+    code: '40003',
+    message: '购物车删除错误',
+    result: '',
+  },
+  CartUpdateError: {
+    code: '40004',
+    message: '购物车更新错误',
+    result: '',
+  },
+
 }

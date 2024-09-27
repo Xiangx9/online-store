@@ -1,10 +1,18 @@
 <script>
 	export default {
 		onLaunch: function() {
-			console.warn('当前组件仅支持 uni_modules 目录结构 ，请升级 HBuilderX 到 3.1.0 版本以上！')
 			console.log('App Launch')
 		},
-		onShow: function() {
+		onShow: async function() {
+			// let user = uni.getStorageSync('User')
+			// if (user) {
+			// 	const res= await this.$u.post('/user/refreshToken', {
+			// 		refreshToken: user.refreshToken
+			// 	})
+			// 	user.refreshToken=res.tokenInfo.refreshToken
+			//  user.token=res.tokenInfo.token
+			//  user.user.refreshToken=res.tokenInfo.refreshToken
+			// }
 			console.log('App Show')
 		},
 		onHide: function() {
@@ -19,6 +27,7 @@
 	@import '@/uni_modules/uni-scss/index.scss';
 	/* #ifndef APP-NVUE */
 	@import '@/static/customicons.css';
+
 	// 设置整个项目的背景色
 	page {
 		background-color: #f5f5f5;

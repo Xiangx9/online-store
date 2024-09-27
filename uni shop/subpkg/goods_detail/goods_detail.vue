@@ -10,9 +10,9 @@
 				￥ {{products.Price}}
 			</view>
 		</view>
-		
+
 		<view class="flex-bottom">
-			<SubmitBar />
+			<SubmitBar :phone='phone' :count='count' :products='products' />
 		</view>
 	</view>
 </template>
@@ -22,22 +22,28 @@
 	export default {
 		data() {
 			return {
-				products: {}
+				products: {},
+				phone: '',
+				count:0
 			};
 		},
 		components: {
 			SubmitBar
 		},
 		onLoad(e) {
+			this.phone = e.phone
 			this.getproduct(e.id)
 		},
 		methods: {
-			async getproduct(id = '66ee64db1a7b27d7eedcfc73') {
+			async getproduct(id) {
+				const res = await this.$u.get('/cart/CartList')
+				res.result[0].products.map(item=>{
+					this.count=item.quantity+this.count
+				})
 				const {
-					data: res
+					data: res1
 				} = await this.$u.get(`/products/productsDetil/${id}`)
-				this.products = res
-				console.log(res);
+				this.products = res1
 			}
 		}
 	}
@@ -59,8 +65,9 @@
 			margin-top: 5px;
 		}
 	}
-	.flex-bottom{
+
+	.flex-bottom {
 		position: fixed;
-		bottom: 0;
+		bottom: 0rpx;
 	}
 </style>

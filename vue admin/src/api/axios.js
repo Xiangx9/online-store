@@ -42,7 +42,7 @@ function refreshToken(params) {
 axios.interceptors.response.use(
   (response) => {
     // 对响应数据做一些处理
-    ElMessage.success(response.data.message);
+    // ElMessage.success(response.data.message);
     const newToken = response.headers['authorization'];
     if (newToken) {
       UserStore().user.token = newToken
@@ -91,7 +91,7 @@ axios.interceptors.response.use(
           })
         }
       }
-      let message =  showMessage(response.status); // 传入响应码，匹配响应码对应信息
+      let message =  showMessage(response.status,response.data.message); // 传入响应码，匹配响应码对应信息
       ElMessage.warning(message);
       return Promise.reject(response.data);
     } else {

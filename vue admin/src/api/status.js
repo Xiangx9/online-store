@@ -1,4 +1,4 @@
-export const showMessage = (status) => {
+export const showMessage = (status,msg) => {
     let message = "";
     switch (status) {
         case 400:
@@ -23,7 +23,7 @@ export const showMessage = (status) => {
             message = "请求频繁(429)";
             break;
         case 500:
-            message = "服务器错误(500)";
+            message = msg || "服务器错误(500)";
             break;
         case 501:
             message = "服务未实现(501)";
