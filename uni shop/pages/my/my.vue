@@ -15,8 +15,8 @@
 		</view>
 
 		<view class="nav">
-			<view class="account" v-for="item in list">
-				<view class="flex" @click="goToPages(item.address)">
+			<view class="account" v-for="item in list"  @click="goToPages(item.address)">
+				<view class="flex">
 					<i class="iconfont" :class='item.icon'></i>
 					<view class="btnav">{{item.name}}</view>
 				</view>

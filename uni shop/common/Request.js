@@ -1,9 +1,5 @@
 // 这里的vm，就是我们在vue文件里面的this，所以我们能在这里获取vuex的变量，比如存放在里面的token变量
-//刷新token
-// 是否正在刷新的标记
-let isRefreshing = false
-//重试队列
-let requests = []
+
 function refreshToken(params) {
   return axios.post("/user/refreshToken", params).then((res) => res.data);
 }
@@ -17,7 +13,7 @@ const install = (Vue, vm) => {
 		showLoading: true, // 是否显示请求中的loading
 		loadingText: '努力加载中...', // 请求loading中的文字提示
 		loadingTime: 800, // 在此时间内，请求还没回来的话，就显示加载中动画，单位ms
-		originalData: false, // 是否在拦截器中返回服务端的原始数据
+		originalData: true, // 是否在拦截器中返回服务端的原始数据
 		loadingMask: true, // 展示loading的时候，是否给一个透明的蒙层，防止触摸穿透
 		// 配置请求头信息
 		header: {
@@ -53,18 +49,21 @@ const install = (Vue, vm) => {
 
 	// 响应拦截，判断状态码是否通过
 	Vue.prototype.$u.http.interceptor.response = (res) => {
-		if (res.code == 200) {
+		console.log(res);
+		if (res.statusCode == 200) {
 			// res为服务端返回值，可能有code，result等字段
 			// 这里对res.result进行返回，将会在this.$u.post(url).then(res => {})的then回调中的res的到
 			// 如果配置了originalData为true，请留意这里的返回值
-			return res;
-		} else if (res.code == 201) {
+			return res.data;
+		} else if (res.statusCode == 401) {
 			// 假设201为token失效，这里跳转登录
 			vm.$u.toast('验证失败，请重新登录');
 			setTimeout(() => {
 				// 此为uView的方法，详见路由相关文档
 				uni.setStorageSync('User','');
-				vm.$u.route('/pages/user/login')
+				uni.navigateTo({
+					url:'/pages/login/login'
+				})
 			}, 1500)
 			return false;
 		} else {

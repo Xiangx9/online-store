@@ -45,35 +45,41 @@
 	"subPackages": [{
 		"root": "subpkg",
 		"pages": [{
-			"path": "goods_detail/goods_detail",
-			"style": {
-				"navigationBarTitleText": "商品详情",
-				"enablePullDownRefresh": false
-			}
-		}, {
-			"path": "goods_list/goods_list",
-			"style": {
-				"navigationBarTitleText": "商品列表",
-				"enablePullDownRefresh": true,
-				"onReachBottomDistance": 150
-			}
+				"path": "goods_detail/goods_detail",
+				"style": {
+					"navigationBarTitleText": "商品详情",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "goods_list/goods_list",
+				"style": {
+					"navigationBarTitleText": "商品列表",
+					"enablePullDownRefresh": true,
+					"onReachBottomDistance": 150
+				}
 
-		}, {
-			"path": "search/search",
-			"style": {
-				"navigationBarTitleText": "搜索页面",
-				"enablePullDownRefresh": false
-			}
+			}, {
+				"path": "search/search",
+				"style": {
+					"navigationBarTitleText": "搜索页面",
+					"enablePullDownRefresh": false
+				}
 
-		},
-		{
-			"path" : "address/address",
-			"style" : 
+			},
 			{
-				"navigationBarTitleText" : "收货地址",
-				"enablePullDownRefresh" : false
+				"path": "address/address",
+				"style": {
+					"navigationBarTitleText": "收货地址",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "address/addSite",
+				"style": {
+					"navigationBarTitleText": "新增收货地址",
+					"enablePullDownRefresh": false
+				}
 			}
-		}]
+		]
 	}],
 
 	"tabBar": {

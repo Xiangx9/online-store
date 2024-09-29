@@ -4,15 +4,6 @@
 			console.log('App Launch')
 		},
 		onShow: async function() {
-			// let user = uni.getStorageSync('User')
-			// if (user) {
-			// 	const res= await this.$u.post('/user/refreshToken', {
-			// 		refreshToken: user.refreshToken
-			// 	})
-			// 	user.refreshToken=res.tokenInfo.refreshToken
-			//  user.token=res.tokenInfo.token
-			//  user.user.refreshToken=res.tokenInfo.refreshToken
-			// }
 			console.log('App Show')
 		},
 		onHide: function() {
