@@ -78,6 +78,13 @@
 					"navigationBarTitleText": "新增收货地址",
 					"enablePullDownRefresh": false
 				}
+			},
+			{
+				"path": "myData/myData",
+				"style": {
+					"navigationBarTitleText": "个人资料",
+					"enablePullDownRefresh": false
+				}
 			}
 		]
 	}],

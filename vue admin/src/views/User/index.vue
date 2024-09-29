@@ -24,9 +24,9 @@
         </el-table-column>
         <el-table-column fixed="right" :label="$t('Users.Action')" min-width="120">
           <template #default="scope">
-            <el-button type="" size="" plain @click="Detail(scope.row)">
+            <!-- <el-button type="" size="" plain @click="Detail(scope.row)">
               {{ $t('Button.Details') }}
-            </el-button>
+            </el-button> -->
             <el-button v-if="role == 'admin'" type="primary" size="" plain @click="Edit(scope.row)">
               {{ $t('Button.Edit') }}
             </el-button>

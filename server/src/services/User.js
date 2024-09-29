@@ -91,7 +91,8 @@ const changToken = async (refreshToken) => {
 
 //修改用户信息
 const updateUserInfo = async (id, userInfo) => {
-  await User.findByIdAndUpdate({ _id: id }, userInfo)
+  const UserInfo = await User.findByIdAndUpdate({ _id: id }, userInfo, { new: true })
+  return UserInfo
 }
 
 //修改用户权限

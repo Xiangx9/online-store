@@ -42,7 +42,7 @@
 					{
 						icon: 'icon-shezhi1',
 						name: '个人资料',
-						address:''
+						address:'/subpkg/myData/myData'
 					}
 				],
 				user: {},
